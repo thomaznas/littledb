@@ -13,6 +13,11 @@
         <!-- add user interface elements to add new posts -->
         <!-- -------------------------------------------- -->
         <!-- YOUR CODE -->
+        <br>
+        <input type="input" id="addId" placeholder="id" >
+        <input type="input" id="addTitle" placeholder="title" >
+        <input type="input" id="addPublished" placeholder="bool" >
+        <button type="button" class="btn btn-info" onclick="add()">Add Record</button>
 
     </main>
 
@@ -42,7 +47,24 @@ function add() {
     // call server and add new post
     // ---------------------------------------
     // YOUR CODE
+    var id = document.getElementById('addId').value;
+    var title = document.getElementById('addTitle').value;
+    var published = document.getElementById('addPublished').value;
 
+    var url = '/posts/'+title+'/'+id+'/'+published;
+
+    superagent
+        .get(url)
+        .end(function(err, res){
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(res);
+                status.innerHTML = JSON.stringify(res.body);
+            }
+
+        });
 }
 </script>
 </html>
